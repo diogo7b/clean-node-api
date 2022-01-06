@@ -4,7 +4,8 @@
   "description": "Acompanhamento das aulas ministradas por Rodrigo Manguinho pelo Youtube.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.js": [
