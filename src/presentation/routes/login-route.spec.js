@@ -15,7 +15,7 @@ const makeSut = () => {
 
 const makeAuthUseCase = () => {
   class AuthUseCaseSpy {
-    auth (email, password) {
+    async auth (email, password) {
       this.email = email
       this.password = password
       return this.accessToken
@@ -26,7 +26,7 @@ const makeAuthUseCase = () => {
 
 const makeAuthUseCaseWithError = () => {
   class AuthUseCaseSpy {
-    auth () {
+    async auth () {
       throw new Error()
     }
   }
@@ -74,7 +74,7 @@ describe('Login Router', () => {
     expect(httpResponse.body).toEqual(new ServerError())
   })
 
-  test('Should return AuthUseCase with correct params', () => {
+  test('Should return AuthUseCase with correct params', async () => {
     const { sut, authUseCaseSpy } = makeSut()
     const httpRequest = {
       body: {
@@ -82,7 +82,7 @@ describe('Login Router', () => {
         password: 'any_password'
       }
     }
-    sut.route(httpRequest)
+    await sut.route(httpRequest)
     expect(authUseCaseSpy.email).toBe(httpRequest.body.email)
     expect(authUseCaseSpy.password).toBe(httpRequest.body.password)
   })
