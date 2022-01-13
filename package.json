@@ -4,8 +4,8 @@
   "description": "Acompanhamento das aulas ministradas por Rodrigo Manguinho pelo Youtube.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
-    "test:staged": "jest --passWithNoTests"
+    "test": "jest --watch --silent --verbose --colors",
+    "test:staged": "jest --passWithNoTests --findRelatedTests --silent --noStackTrace"
   },
   "standard":{
     "env":["jest"]
