@@ -4,6 +4,7 @@
   "description": "Acompanhamento das aulas ministradas por Rodrigo Manguinho pelo Youtube.",
   "main": "index.js",
   "scripts": {
+    "prepare":"npx husky install",
     "test": "jest --verbose --colors --noStackTrace --passWithNoTests",
     "test:unit": "npm run test -- --watch -c jest-unit-config.js",
     "test:integration": "npm run test -- --watch -c jest-integration-config.js",
