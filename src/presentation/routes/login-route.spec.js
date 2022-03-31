@@ -9,18 +9,6 @@ const {
   InvalidParamError
 } = require('../../utils/errors')
 
-const makeSut = () => {
-  const authUseCaseSpy = makeAuthUseCase()
-  const emailValidatorSpy = makeEmailValidator()
-  authUseCaseSpy.accessToken = 'valid_token'
-  const sut = new LoginRouter(authUseCaseSpy, emailValidatorSpy)
-  return {
-    sut,
-    authUseCaseSpy,
-    emailValidatorSpy
-  }
-}
-
 const makeEmailValidator = () => {
   class EmailValidatorSpy {
     isValid (email) {
@@ -62,6 +50,18 @@ const makeAuthUseCaseWithError = () => {
     }
   }
   return new AuthUseCaseSpy()
+}
+
+const makeSut = () => {
+  const authUseCaseSpy = makeAuthUseCase()
+  const emailValidatorSpy = makeEmailValidator()
+  authUseCaseSpy.accessToken = 'valid_token'
+  const sut = new LoginRouter(authUseCaseSpy, emailValidatorSpy)
+  return {
+    sut,
+    authUseCaseSpy,
+    emailValidatorSpy
+  }
 }
 
 describe('Login Router', () => {
