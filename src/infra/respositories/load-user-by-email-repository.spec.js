@@ -1,6 +1,6 @@
 const LoadUserByEmailRpository = require('./load-user-email-repository')
-const { MongoClient } = require('mongodb')
-let client, db
+const MongoHelper = require('../helpers/mongo-helper')
+let db
 
 const makeSut = () => {
   const userModel = db.collection('users')
@@ -13,19 +13,16 @@ const makeSut = () => {
 
 describe('LoadUserByEmail Repository', () => {
   beforeAll(async () => {
-    client = await MongoClient.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
-    db = await client.db()
+    await MongoHelper.connect(process.env.MONGO_URL)
+    db = MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é amis utilizada.
   })
 
-  afterAll(async () => {
+  beforeEach(async () => {
     await db.collection('users').deleteMany()
   })
 
   afterAll(async () => {
-    await client.close()
+    await MongoHelper.disconnect()
   })
 
   test('Should return null if no user is found', async () => {
