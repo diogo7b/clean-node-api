@@ -1,24 +1,25 @@
 const LoadUserByEmailRpository = require('./load-user-email-repository')
 const MongoHelper = require('../helpers/mongo-helper')
+const { MissingParamError } = require('../../utils/errors')
 let db
 
 const makeSut = () => {
   const userModel = db.collection('users')
   const sut = new LoadUserByEmailRpository(userModel)
   return {
-    userModel,
-    sut
+    sut,
+    userModel
   }
 }
 
 describe('LoadUserByEmail Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
-    db = await MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é amis utilizada.
+    db = await MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é mais utilizada.
   })
 
   beforeEach(async () => {
-    await db.collection('users').deleteMany()
+    await MongoHelper.db.collection('users').deleteMany()
   })
 
   afterAll(async () => {
@@ -48,5 +49,11 @@ describe('LoadUserByEmail Repository', () => {
     const sut = new LoadUserByEmailRpository()
     const promise = sut.load('any_email@email.com')
     expect(promise).rejects.toThrow()
+  })
+
+  test('Should throw if no email is provided', async () => {
+    const { sut } = makeSut()
+    const promise = sut.load()
+    expect(promise).rejects.toThrow(new MissingParamError('email'))
   })
 })
