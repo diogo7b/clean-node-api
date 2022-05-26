@@ -14,7 +14,7 @@ const makeSut = () => {
 describe('LoadUserByEmail Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
-    db = MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é amis utilizada.
+    db = await MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é amis utilizada.
   })
 
   beforeEach(async () => {
@@ -42,5 +42,11 @@ describe('LoadUserByEmail Repository', () => {
     })
     const user = await sut.load('valid@email.com')
     expect(user._id).toEqual(fakeUser.insertedId)
+  })
+
+  test('Should throw if no userModel is provided', async () => {
+    const sut = new LoadUserByEmailRpository()
+    const promise = sut.load('any_email@email.com')
+    expect(promise).rejects.toThrow()
   })
 })
