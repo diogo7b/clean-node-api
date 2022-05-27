@@ -1,4 +1,5 @@
 const MongoHelper = require('../helpers/mongo-helper')
+const { MissingParamError } = require('../../utils/errors')
 let db
 
 class UpdateAccessTokenRepository {
@@ -27,6 +28,7 @@ const makeSut = () => {
 
 describe('UpdateAccessToken Repository', () => {
     beforeAll(async () => {
+        // await MongoHelper.disconnect()
         await MongoHelper.connect(process.env.MONGO_URL)
         db = await MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é mais utilizada.
     })
@@ -37,6 +39,7 @@ describe('UpdateAccessToken Repository', () => {
 
     afterAll(async () => {
         await MongoHelper.disconnect()
+
     })
 
     test('Should update the user with the given access token', async () => {
@@ -65,5 +68,18 @@ describe('UpdateAccessToken Repository', () => {
         })
         const promise = sut.update(fakeUser.insertedId, "valid_token")
         expect(promise).rejects.toThrow()
+    })
+
+    test('Should throw if no params are provided', async () => {
+        const { sut, userModel } = makeSut()
+        const fakeUser = await userModel.insertOne({
+            email: 'valid@email.com',
+            name: 'any_name',
+            age: 50,
+            state: 'any_state',
+            password: 'hashed_password'
+        })
+        expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
+        expect(sut.update(fakeUser.insertedId)).rejects.toThrow(new MissingParamError('accessToken'))
     })
 })
