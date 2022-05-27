@@ -1,14 +1,9 @@
 const MongoHelper = require('../helpers/mongo-helper')
+let db
 
 class UpdateAccessTokenRepository {
     constructor(userModel) {
         this.userModel = userModel
-    }
-
-    async verifyUserModel() {
-        if (!this.userModel) {
-            throw new Error
-        }
     }
 
     async update(userID, accessToken) {
@@ -21,9 +16,16 @@ class UpdateAccessTokenRepository {
         })
     }
 }
+const makeSut = () => {
+    const userModel = db.collection("users")
+    const sut = new UpdateAccessTokenRepository(userModel)
+    return {
+        sut,
+        userModel
+    }
+}
 
 describe('UpdateAccessToken Repository', () => {
-    let db
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
         db = await MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é mais utilizada.
@@ -38,8 +40,7 @@ describe('UpdateAccessToken Repository', () => {
     })
 
     test('Should update the user with the given access token', async () => {
-        const userModel = db.collection('users')
-        const sut = new UpdateAccessTokenRepository(userModel)
+        const { sut, userModel } = makeSut()
         const fakeUser = await userModel.insertOne({
             email: 'valid@email.com',
             name: 'any_name',
