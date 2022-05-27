@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run test:ci
+if [ git-branch-is main]; then npm test:ci; fi

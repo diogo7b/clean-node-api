@@ -2,4 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # npx lint-staged
-if [ git-branch-is master]; then npm test; fi
+if [ git-branch-is main]; then npm test; fi
