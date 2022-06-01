@@ -1,5 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+<<<<<<< HEAD
 # npx lint-staged
+=======
+>>>>>>> error--UpdateAccessTokenRepository-cannot-use-MongoHelper-functions-
 if [ git-branch-is main]; then npm test; fi
