@@ -31,6 +31,7 @@
     "husky": "^7.0.4",
     "jest": "^27.4.7",
     "lint-staged": "^12.1.5",
+    "mongodb-memory-server": "^8.6.0",
     "standard": "^16.0.4"
   },
   "dependencies": {
