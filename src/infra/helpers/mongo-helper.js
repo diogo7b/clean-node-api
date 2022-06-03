@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb')
 
-class MongoHelper {
+module.exports= {
   async connect(uri, dbName) {
     this.uri = uri
     this.dbName = dbName
@@ -9,11 +9,9 @@ class MongoHelper {
       useUnifiedTopology: true
     })
     this.db = await this.client.db(dbName)
-  }
+  },
 
   async disconnect() {
     await this.client.close()
   }
 }
-
-module.exports = new MongoHelper

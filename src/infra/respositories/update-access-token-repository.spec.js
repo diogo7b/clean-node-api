@@ -1,5 +1,6 @@
 const MongoHelper = require('../helpers/mongo-helper')
 const { MissingParamError } = require('../../utils/errors')
+const { ObjectID, ObjectId } = require('mongodb')
 let db
 
 class UpdateAccessTokenRepository {
@@ -8,6 +9,12 @@ class UpdateAccessTokenRepository {
     }
 
     async update(userID, accessToken) {
+        if (!userID) {
+            throw new MissingParamError('userId')
+        }
+        if (!accessToken) {
+            throw new MissingParamError('accessToken')
+        }
         await this.userModel.updateOne({
             _id: userID
         }, {
@@ -38,7 +45,7 @@ describe('UpdateAccessToken Repository', () => {
     })
 
     afterAll(async () => {
-        await MongoHelper.disconnect()
+        // await MongoHelper.disconnect()
 
     })
 
@@ -79,7 +86,9 @@ describe('UpdateAccessToken Repository', () => {
             state: 'any_state',
             password: 'hashed_password'
         })
+        const userId = fakeUser.insertedId.toString()//.rejects.toThrow(new MissingParamError('accesToken'))
+        console.log(fakeUser.insertedId.toString())
         expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
-        expect(sut.update(fakeUser.insertedId)).rejects.toThrow(new MissingParamError('accessToken'))
+        expect(sut.update(userId)).rejects.toThrow(new MissingParamError('accessToken'))
     })
 })
