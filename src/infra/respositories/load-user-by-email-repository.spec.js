@@ -22,9 +22,10 @@ describe('LoadUserByEmail Repository', () => {
     await MongoHelper.db.collection('users').deleteMany()
   })
 
-  afterAll(async () => {
-    await MongoHelper.disconnect()
-  })
+  // com a nova função, mongodb desconecta automaticamente
+  // afterAll(async () => {
+  //   await MongoHelper.disconnect()
+  // })
 
   test('Should return null if no user is found', async () => {
     const { sut } = makeSut()

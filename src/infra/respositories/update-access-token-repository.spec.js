@@ -1,29 +1,8 @@
 const MongoHelper = require('../helpers/mongo-helper')
 const { MissingParamError } = require('../../utils/errors')
-const { ObjectID, ObjectId } = require('mongodb')
+const UpdateAccessTokenRepository= require('./update-access-token-respository')
 let db
 
-class UpdateAccessTokenRepository {
-    constructor(userModel) {
-        this.userModel = userModel
-    }
-
-    async update(userID, accessToken) {
-        if (!userID) {
-            throw new MissingParamError('userId')
-        }
-        if (!accessToken) {
-            throw new MissingParamError('accessToken')
-        }
-        await this.userModel.updateOne({
-            _id: userID
-        }, {
-            $set: {
-                accessToken
-            }
-        })
-    }
-}
 const makeSut = () => {
     const userModel = db.collection("users")
     const sut = new UpdateAccessTokenRepository(userModel)
@@ -44,10 +23,10 @@ describe('UpdateAccessToken Repository', () => {
         await db.collection('users').deleteMany()
     })
 
-    afterAll(async () => {
-        // await MongoHelper.disconnect()
-
-    })
+    // com a nova função, mongodb desconecta automaticamente
+    // afterAll(async () => {
+    //     // await MongoHelper.disconnect()
+    // })
 
     test('Should update the user with the given access token', async () => {
         const { sut, userModel } = makeSut()
