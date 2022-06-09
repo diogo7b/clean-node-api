@@ -23,9 +23,9 @@ describe('LoadUserByEmail Repository', () => {
   })
 
   // com a nova função, mongodb desconecta automaticamente
-  // afterAll(async () => {
-  //   await MongoHelper.disconnect()
-  // })
+  afterAll(async () => {
+    await MongoHelper.disconnect()
+  })
 
   test('Should return null if no user is found', async () => {
     const { sut } = makeSut()

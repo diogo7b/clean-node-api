@@ -10,7 +10,8 @@
     "test:unit": "npm run test -- --watch -c jest-unit-config.js",
     "test:integration": "npm run test -- --watch -c jest-integration-config.js",
     "test:staged": "npm run test -- --findRelatedTests --silent",
-    "test:ci": "npm run test -- --coverage --silent"
+    "test:ci": "npm run test -- --coverage --silent",
+    "test:broke": "npm run test -- --coverage --silent --detectOpenHandles"
   },
   "standard": {
     "env": [
