@@ -33,7 +33,8 @@
     "jest": "^27.4.7",
     "lint-staged": "^12.1.5",
     "mongodb-memory-server": "^8.6.0",
-    "standard": "^16.0.4"
+    "standard": "^16.0.4",
+    "supertest": "^6.2.3"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
