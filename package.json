@@ -2,8 +2,9 @@
   "name": "clean-node-api",
   "version": "1.0.0",
   "description": "Acompanhamento das aulas ministradas por Rodrigo Manguinho pelo Youtube.",
-  "main": "index.js",
+  "main": "src/main/index.js",
   "scripts": {
+    "start": "node src/main/index.js",
     "prepare": "npx husky install",
     "test": "jest --verbose --colors --noStackTrace --passWithNoTests",
     "test:unit": "npm run test -- --watch -c jest-unit-config.js",
@@ -36,6 +37,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "express": "^4.18.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.5.0"
   }
