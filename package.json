@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/main/index.js",
     "prepare": "npx husky install",
-    "test": "jest --verbose --colors --noStackTrace --passWithNoTests",
+    "test": "jest --verbose --colors --noStackTrace --passWithNoTests --runInBand",
     "test:unit": "npm run test -- --watch -c jest-unit-config.js",
     "test:integration": "npm run test -- --watch -c jest-integration-config.js",
     "test:staged": "npm run test -- --findRelatedTests --silent",
