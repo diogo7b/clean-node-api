@@ -66,7 +66,6 @@ describe('UpdateAccessToken Repository', () => {
       password: 'hashed_password'
     })
     const userId = fakeUser.insertedId.toString()// .rejects.toThrow(new MissingParamError('accesToken'))
-    console.log(fakeUser.insertedId.toString())
     expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
     expect(sut.update(userId)).rejects.toThrow(new MissingParamError('accessToken'))
   })
