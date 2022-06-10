@@ -1,0 +1,15 @@
+const request = require('supertest')
+const app = require('../config/app')
+
+describe('App Setup', () => {
+  test('Should enabled CORS', async () => {
+    app.get('/test_cors', (req, res) => {
+      res.send('cors')
+    })
+
+    const res = await request(app).get('/test_cors')
+    expect(res.headers['access-control-allow-origin']).toBe('*')
+    expect(res.headers['access-control-allow-methods']).toBe('*')
+    expect(res.headers['access-control-allow-headers']).toBe('*')
+  })
+})
