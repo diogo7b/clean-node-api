@@ -4,7 +4,7 @@ const app = require('./app')
 describe('App Setup', () => {
   test('test Should disable x-powered-by header', async () => {
     app.get('/test_spoweredby', (req, res) => {
-      res.send('x-powered-by')
+      res.send('')
     })
 
     const res = await request(app).get('/test_spoweredby')
@@ -13,7 +13,7 @@ describe('App Setup', () => {
 
   test('Should enabled CORS', async () => {
     app.get('/test_cors', (req, res) => {
-      res.send('cors')
+      res.send('')
     })
 
     const res = await request(app).get('/test_cors')

@@ -4,7 +4,7 @@ const app = require('../config/app')
 describe('App Setup', () => {
   test('Should enabled CORS', async () => {
     app.get('/test_cors', (req, res) => {
-      res.send('cors')
+      res.send('')
     })
 
     const res = await request(app).get('/test_cors')
