@@ -6,12 +6,16 @@ module.exports = class LoadUserByEmailRpository {
     if (!email) {
       throw new MissingParamError('email')
     }
-    const user = MongoHelper.db.collection('users').findOne({ email },
-      {
-        projection: {
-          password: 1
-        }
-      })
+
+    const user = MongoHelper
+      .db
+      .collection('users')
+      .findOne({ email },
+        {
+          projection: {
+            password: 1
+          }
+        })
     return user
   }
 }

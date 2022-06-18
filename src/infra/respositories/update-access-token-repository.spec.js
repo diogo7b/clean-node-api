@@ -10,7 +10,7 @@ const makeSut = () => {
 describe('UpdateAccessToken Repository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
-    db = await MongoHelper.db// in video é utilizado um metodo que chama o isConnected. Essa função não é mais utilizada.
+    db = await MongoHelper.db // in video é utilizado um metodo que chama o isConnected. Essa função não é mais utilizada.
   })
 
   beforeEach(async () => {
