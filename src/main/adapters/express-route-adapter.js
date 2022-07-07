@@ -1,4 +1,4 @@
-module.export = class ExpressRouteAdapter {
+module.exports = class ExpressRouteAdapter {
   static adapt (router) {
     return async (request, response) => {
       const httpRequest = {
